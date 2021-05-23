@@ -65,7 +65,7 @@ class MemberPolicy
      */
     public function delete(User $user, Member $member)
     {
-        return $member->user_id == $user->id;
+        return $member->user_id === $user->id;
     }
 
     /**

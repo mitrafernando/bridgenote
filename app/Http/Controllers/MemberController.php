@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,9 +14,15 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        try {
+            $user = User::with('member')->findOrFail($request->user()->id);
+
+            return response($user);
+        } catch (\Throwable $th) {
+            return response(['error' => 'data not found']);
+        }
     }
 
     /**
@@ -36,12 +43,17 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        $member = Member::create([
-            'user_id' => $request->user()->id,
-            'status' => 'active',
-            'position' => ''
-        ]);
-        return response($member, Response::HTTP_CREATED);
+        try {
+            $member = Member::create([
+                'user_id' => $request->user()->id,
+                'status' => 'active',
+                'position' => ''
+            ]);
+            return response($member, Response::HTTP_CREATED);
+        } catch (\Throwable $th) {
+            return response(['error' => 'please create with another user']);
+        }
+
     }
 
     /**
@@ -75,11 +87,16 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $member = Member::findOrFail($id);
-        $member->status = $request->status;
-        $member->position = $request->position;
-        $member->save();
+        try {
+            $member = Member::findOrFail($id);
+            $this->authorize('update', $member);
+            $member->status = $request->status;
+            $member->position = $request->position;
+            $member->save();
         return response($member);
+        } catch (\Throwable $th) {
+            return response(['error' => 'data not found']);
+        }
     }
 
     /**
@@ -90,12 +107,16 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        $member = Member::findOrFail($id);
+        try {
+            $member = Member::findOrFail($id);
+            $this->authorize('delete', $member);
+            $member->delete();
 
-        $member->delete();
-
-        return response([
-            'status' => 'succeed'
-        ]);
+            return response([
+                'status' => 'succeed'
+            ]);
+        } catch (\Throwable $th) {
+            return response(['error' => 'data not found']);
+        }
     }
 }
