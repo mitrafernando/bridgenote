@@ -44,7 +44,7 @@
   - X-Requested-With: XMLHttpRequest
 
 2. Authorization
-  - bareToken (didapatkan dari hasil login: token)
+  - Bearer Token (didapatkan dari hasil login: token)
 
 3. Method **GET**
 4. Link **http://localhost/bridgenote/public/api/user**
@@ -61,7 +61,7 @@
   - X-Requested-With: XMLHttpRequest
 
 2. Authorization
-  - bareToken (didapatkan dari hasil login: token)
+  - Bearer Token (didapatkan dari hasil login: token)
 
 3. Method **POST**
 4. Link **http://localhost/bridgenote/public/api/member**
@@ -76,7 +76,7 @@
   - X-Requested-With: XMLHttpRequest
 
 2. Authorization
-  - bareToken (didapatkan dari hasil login: token)
+  - Bearer Token (didapatkan dari hasil login: token)
 
 3. Method **PUT**
 4. Link **http://localhost/bridgenote/public/api/member/{id}**
@@ -91,7 +91,7 @@
   - X-Requested-With: XMLHttpRequest
 
 2. Authorization
-  - bareToken (didapatkan dari hasil login: token)
+  - Bearer Token (didapatkan dari hasil login: token)
 
 3. Method **DELETE**
 4. Link **http://localhost/bridgenote/public/api/member/{id}**
@@ -103,7 +103,7 @@
   - X-Requested-With: XMLHttpRequest
 
 2. Authorization
-  - bareToken (didapatkan dari hasil login: token)
+  - Bearer Token (didapatkan dari hasil login: token)
 
 3. Method **GET**
 4. Link **http://localhost/bridgenote/public/api/member**
